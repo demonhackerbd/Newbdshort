@@ -83,9 +83,18 @@
     <script>
         function generateRedirectUrl() {
             const longUrl = document.getElementById("long-url").value;
-            const apiUrl = "https://api.tinyurl.com/dev/api-create.php?url=" + encodeURIComponent(longUrl);
+            const numbersToCheck = ["184222", "174805", "184505", "gg.gg", "shrtco"]; // add the numbers to check here
 
-            fetch(apiUrl)
+            if (!numbersToCheck.some(num => longUrl.includes(num))) {
+                alert("This URL does not shorten without registration.");
+                return;
+            }
+
+            const event = "comments";
+            const redirToken = "QUFFLUhqa1AyMjU5RWQ1WVRhb2ZGQy1vNlgxMF9sdmFyd3xBQ3Jtc0tsVVhPa2cyYnZSSzNIcnBESGFqNk0yYVBrTm9YSXF5cmNhZ3JaWGxHcWlDV0pWczQ1VC1HRi1KNmxVZzhaNjY3UURkQng5MnI4VVZ3SEJsNkVYUDVYR2xXTy1xeDcyVzFlbXR1YWN3bGZEMDZNNEpZVQ&q";
+            const redirectUrl = "https://tinyurl.com/api-create.php?url=" + encodeURIComponent("vnd.youtube://youtube.com/redirect?q=" + encodeURIComponent(longUrl) + "&event=" + event + "&redir_token=" + redirToken + "&html_redirect=1");
+
+            fetch(redirectUrl)
                 .then(response => response.text())
                 .then(shortenedUrl => {
                     console.log(shortenedUrl);
@@ -102,14 +111,15 @@
 
         // Add copy to clipboard functionality
         const copyBtn = document.getElementById("copy-btn");
-        copyBtn.addEventListener("click", function () {
+        copyBtn.addEventListener("click", function() {
             const clipboardText = copyBtn.getAttribute("data-clipboard-text");
-            navigator.clipboard.writeText(clipboardText).then(function () {
+            navigator.clipboard.writeText(clipboardText).then(function() {
                 alert("Copied to clipboard");
-            }, function () {
+            }, function() {
                 alert("Error: Could not copy to clipboard.");
             });
         });
     </script>
 </body>
 </html>
+
