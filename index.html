@@ -61,25 +61,15 @@
         const youtubeAppOpenerUrl =
           "https://www.youtube.com/redirect?url=" + videoId;
 
-        // Make an API call to tinyurl1 endpoint
+        // Make an API call to tinyurl endpoint
         const tinyUrl =
           "https://tinyurl.com/api-create.php?url=" +
           encodeURIComponent(youtubeAppOpenerUrl);
 
         fetch(tinyUrl1)
           .then((response) => response.text())
-          .then((tiny1shortUrl) => {
-            console.log(tiny1shortUrl);
-
-            // Make an API call to tinyurl2 endpoint
-        const tinyUrl =
-          "https://tinyurl.com/api-create.php?url=" +
-          encodeURIComponent(tiny1shortUrl);
-
-        fetch(tinyUrl2)
-          .then((response) => response.text())
-          .then((tiny2shortUrl) => {
-            console.log(tiny2shortUrl);
+          .then((tinyshortUrl) => {
+            console.log(tinyshortUrl);
 
             // Update result and copy button
             document.getElementById(
