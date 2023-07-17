@@ -61,20 +61,30 @@
         const youtubeAppOpenerUrl =
           "https://www.youtube.com/redirect?url=" + videoId;
 
-        // Make an API call to tinyurl endpoint
+        // Make an API call to tinyurl1 endpoint
         const tinyUrl =
           "https://tinyurl.com/api-create.php?url=" +
           encodeURIComponent(youtubeAppOpenerUrl);
 
-        fetch(tinyUrl)
+        fetch(tinyUrl1)
           .then((response) => response.text())
-          .then((shortUrl) => {
-            console.log(shortUrl);
+          .then((tiny1shortUrl) => {
+            console.log(tiny1shortUrl);
+
+            // Make an API call to tinyurl2 endpoint
+        const tinyUrl =
+          "https://tinyurl.com/api-create.php?url=" +
+          encodeURIComponent(tiny1shortUrl);
+
+        fetch(tinyUrl2)
+          .then((response) => response.text())
+          .then((tiny2shortUrl) => {
+            console.log(tiny2shortUrl);
 
             // Update result and copy button
             document.getElementById(
               "result"
-            ).innerHTML = `Your shortened URL is: <a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
+            ).innerHTML = `Your shortened URL is: <a href="${tiny2shortUrl}" target="_blank">${tiny2shortUrl}</a>`;
             document.getElementById("copy-btn").style.display = "block";
             document
               .getElementById("copy-btn")
