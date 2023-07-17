@@ -83,42 +83,21 @@
     <script>
         function generateRedirectUrl() {
             const longUrl = document.getElementById("long-url").value;
-            const numbersToCheck = ["184222", "174805", "184505", "gg.gg", "shrtco"]; // add the numbers to check here
+            const apiUrl = "https://api.tinyurl.com/dev/api-create.php?url=" + encodeURIComponent(longUrl);
 
-            if (!numbersToCheck.some(num => longUrl.includes(num))) {
-                alert("This URL does not shorten without registration.");
-                return;
-            }
-            const event = "comments";
-            const redirToken = "QUFFLUhqa1AyMjU5RWQ1WVRhb2ZGQy1vNlgxMF9sdmFyd3xBQ3Jtc0tsVVhPa2cyYnZSSzNIcnBESGFqNk0yYVBrTm9YSXF5cmNhZ3JaWGxHcWlDV0pWczQ1VC1HRi1KNmxVZzhaNjY3UURkQng5MnI4VVZ3SEJsNkVYUDVYR2xXTy1xeDcyVzFlbXR1YWN3bGZEMDZNNEpZVQ&q";
-            const apiUrl = "https://urlss.in/api/url/add";
-            const apiKey = "3ed2f0da694c5d83c69d9a3cf646b925";
+            fetch(apiUrl)
+                .then(response => response.text())
+                .then(shortenedUrl => {
+                    console.log(shortenedUrl);
 
-            const requestBody = JSON.stringify({
-                url: + encodeURIComponent("vnd.youtube://youtube.com/redirect?q=" + encodeURIComponent(longUrl) + "&event=" + event + "&redir_token=" + redirToken + "&html_redirect=1");
-                api_key: apiKey
-            });
-
-            fetch(apiUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: requestBody
-            })
-            .then(response => response.json())
-            .then(response => {
-                const shortUrl = response.short_url;
-                console.log(shortUrl);
-
-                document.getElementById("result").innerHTML = "আপনার ইউটিউব লিংক = <a href='" + shortUrl + "' target='_blank'>" + shortUrl + "</a>";
-                document.getElementById("copy-btn").style.display = "block";
-                document.getElementById("copy-btn").setAttribute("data-clipboard-text", shortUrl);
-            })
-            .catch(error => {
-                console.error(error);
-                document.getElementById("result").innerHTML = "An error occurred while shortening the URL.";
-            });
+                    document.getElementById("result").innerHTML = "আপনার ইউটিউব লিংক = <a href='" + shortenedUrl + "' target='_blank'>" + shortenedUrl + "</a>";
+                    document.getElementById("copy-btn").style.display = "block";
+                    document.getElementById("copy-btn").setAttribute("data-clipboard-text", shortenedUrl);
+                })
+                .catch(error => {
+                    console.error(error);
+                    document.getElementById("result").innerHTML = "An error occurred while shortening the URL.";
+                });
         }
 
         // Add copy to clipboard functionality
@@ -134,4 +113,3 @@
     </script>
 </body>
 </html>
-
