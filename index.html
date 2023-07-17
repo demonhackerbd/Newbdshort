@@ -92,7 +92,7 @@
 
             const event = "comments";
             const redirToken = "QUFFLUhqa1AyMjU5RWQ1WVRhb2ZGQy1vNlgxMF9sdmFyd3xBQ3Jtc0tsVVhPa2cyYnZSSzNIcnBESGFqNk0yYVBrTm9YSXF5cmNhZ3JaWGxHcWlDV0pWczQ1VC1HRi1KNmxVZzhaNjY3UURkQng5MnI4VVZ3SEJsNkVYUDVYR2xXTy1xeDcyVzFlbXR1YWN3bGZEMDZNNEpZVQ&q";
-            const redirectUrl = "https://tinyurl.com/api-create.php?url=" + encodeURIComponent("www.youtube.com/redirect?q=" + encodeURIComponent(longUrl) + "&event=" + event + "&redir_token=" + redirToken + "&html_redirect=1");
+            const redirectUrl = "https://tinyurl.com/api-create.php?url=" + encodeURIComponent("https://www.youtube.com/redirect?q=" + encodeURIComponent(longUrl) + "&event=" + event + "&redir_token=" + redirToken + "&html_redirect=1");
 
             fetch(redirectUrl)
                 .then(response => response.text())
