@@ -66,15 +66,15 @@
           "https://tinyurl.com/api-create.php?url=" +
           encodeURIComponent(youtubeAppOpenerUrl);
 
-        fetch(tinyUrl1)
+        fetch(tinyUrl)
           .then((response) => response.text())
           .then((tinyshortUrl) => {
-            console.log(tinyshortUrl);
+            console.log(shortUrl);
 
             // Update result and copy button
             document.getElementById(
               "result"
-            ).innerHTML = `Your shortened URL is: <a href="${tinyshortUrl}" target="_blank">${tinyshortUrl}</a>`;
+            ).innerHTML = `Your shortened URL is: <a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
             document.getElementById("copy-btn").style.display = "block";
             document
               .getElementById("copy-btn")
