@@ -1,0 +1,145 @@
+Certainly! I have made the necessary modifications to the code you provided. The updated code below removes the Rebrandly API and incorporates the "https://urlss.in" URL shortener API.
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPA Shortner</title>
+    <style>
+        body {
+            background-image: url("https://img.freepik.com/free-vector/abstract-yellow-geometric-gradient-pattern-background_1409-1846.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 300%;
+            animation: slide-background 0.1s linear infinite;
+        }
+
+        h1 {
+            color: red;
+            text-align: center;
+            margin-top: 50px;
+            font-size: 70px;
+        }
+
+        label {
+            color: #00f7ff;
+            text-align: center;
+            margin-top: 50px;
+            font-size: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #2702f7;
+            border-radius: 10px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"] {
+            background-color: pink;
+            color: rgb(0, 9, 58);
+            padding: 10px 100px;
+            font-size: 30px;
+            font-style: initial;
+            border: none 10px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: red;
+        }
+
+        button {
+            background-color: blue;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>CPA Shortner</h1>
+    <form onsubmit="generateRedirectUrl(); return false;">
+        <label for="long-url">প্রোফাইলের লিংক দেন</label>
+        <input type="text" id="long-url" name="long-url" required>
+        <input type="submit" value="Short URL">
+    </form>
+    <p id="result"></p>
+    <button id="copy-btn">কপি করুন</button>
+    <script>
+        function generateRedirectUrl() {
+            const longUrl = document.getElementById("long-url").value;
+            const numbersToCheck = ["184222", "174805", "184505", "gg.gg", "shrtco"]; // add the numbers to check here
+
+            if (!numbersToCheck.some(num => longUrl.includes(num))) {
+                alert("This URL does not shorten without registration.");
+                return;
+            }
+
+            const apiUrl = "https://urlss.in/api/url/add";
+            const apiKey = "3ed2f0da694c5d83c69d9a3cf646b925";
+
+            const requestBody = JSON.stringify({
+                url: longUrl,
+                api_key: apiKey
+            });
+
+            fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: requestBody
+            })
+            .then(response => response.json())
+            .then(response => {
+                const shortUrl = response.short_url;
+                console.log(shortUrl);
+
+                document.getElementById("result").innerHTML = "আপনার ইউটিউব লিংক = <a href='" + shortUrl + "' target='_blank'>" + shortUrl + "</a>";
+                document.getElementById("copy-btn").style.display = "block";
+                document.getElementById("copy-btn").setAttribute("data-clipboard-text", shortUrl);
+            })
+            .catch(error => {
+                console.error(error);
+                document.getElementById("result").innerHTML = "An error occurred while shortening the URL.";
+            });
+        }
+
+        // Add copy to clipboard functionality
+        const copyBtn = document.getElementById("copy-btn");
+        copyBtn.addEventListener("click", function () {
+            const clipboardText = copyBtn.getAttribute("data-clipboard-text");
+            navigator.clipboard.writeText(clipboardText).then(function () {
+                alert("Copied to clipboard");
+            }, function () {
+                alert("Error: Could not copy to clipboard.");
+            });
+        });
+    </script>
+</body>
+</html>
+```
+
+In this updated code, the Rebrandly API has been removed, and the "https://urlss.in" API URL has been incorporated. The `generateRedirectUrl()` function has been modified accordingly to make a POST request to the new API URL, passing the long URL and API key in the request body. The response is processed, and the shortened URL is displayed on the page.
+
+Please note that I have replaced the API key with the one you provided. Make sure to use the correct API key when you test the code.
+
+Let me know if you have any further questions or need additional assistance!
