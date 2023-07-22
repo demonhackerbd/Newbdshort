@@ -54,53 +54,53 @@
     <p id="result"></p>
     <button id="copy-btn">Copy to Clipboard</button>
     <script>
-      function generateShortURL() {
-        const videoId = document.getElementById("video-id").value;
+  function generateShortURL() {
+    const videoId = document.getElementById("video-id").value;
 
-        // Construct the YouTube app opener URL
-        const youtubeAppOpenerUrl =
-          "https://www.youtube.com/redirect?url=" + videoId;
+    // Construct the YouTube app opener URL
+    const youtubeAppOpenerUrl =
+      "https://www.youtube.com/redirect?url=" + videoId;
 
-        // Make an API call to tinyurl endpoint
-        const tinyUrl =
-          "https://tinyurl.com/api-create.php?url=" +
-          encodeURIComponent(youtubeAppOpenerUrl);
+    // Make an API call to shorturl.at endpoint
+    const shorturlAtApiUrl =
+      "https://www.shorturl.at/su_api.php?url=" +
+      encodeURIComponent(youtubeAppOpenerUrl);
 
-        fetch(tinyUrl)
-          .then((response) => response.text())
-          .then((tinyshortUrl) => {
-            console.log(shortUrl);
+    fetch(shorturlAtApiUrl)
+      .then((response) => response.text())
+      .then((shortUrl) => {
+        console.log(shortUrl);
 
-            // Update result and copy button
-            document.getElementById(
-              "result"
-            ).innerHTML = `Your shortened URL is: <a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
-            document.getElementById("copy-btn").style.display = "block";
-            document
-              .getElementById("copy-btn")
-              .setAttribute("data-clipboard-text", shortUrl);
-          })
-          .catch((error) => {
-            console.log(error);
-            document.getElementById(
-              "result"
-            ).innerHTML = "An error occurred while shortening the URL.";
-          });
-      }
-
-      // Add copy to clipboard functionality
-      const copyBtn = document.getElementById("copy-btn");
-      copyBtn.addEventListener("click", function () {
-        const clipboardText = copyBtn.getAttribute("data-clipboard-text");
-        navigator.clipboard
-          .writeText(clipboardText)
-          .then(function () {
-            alert("Copied to clipboard!");
-          })
-          .catch(function () {
-            alert("Error: Could not copy to clipboard.");
-          });
+        // Update result and copy button
+        document.getElementById(
+          "result"
+        ).innerHTML = `Your shortened URL is: <a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
+        document.getElementById("copy-btn").style.display = "block";
+        document
+          .getElementById("copy-btn")
+          .setAttribute("data-clipboard-text", shortUrl);
+      })
+      .catch((error) => {
+        console.log(error);
+        document.getElementById(
+          "result"
+        ).innerHTML = "An error occurred while shortening the URL.";
       });
-    </script>
+  }
+
+  // Add copy to clipboard functionality
+  const copyBtn = document.getElementById("copy-btn");
+  copyBtn.addEventListener("click", function () {
+    const clipboardText = copyBtn.getAttribute("data-clipboard-text");
+    navigator.clipboard
+      .writeText(clipboardText)
+      .then(function () {
+        alert("Copied to clipboard!");
+      })
+      .catch(function () {
+        alert("Error: Could not copy to clipboard.");
+      });
+  });
+</script>
   </body>
 </html>
